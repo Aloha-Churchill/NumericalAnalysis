@@ -20,16 +20,23 @@ def f2(x):
         n -= 1 
     return res
 
+def f3(x):
+    return (x**3 + x - 4)
+
 #uses bisection method to find root within a specified tolerance
 def bisect(f,a,b,tol):
     num_iterations = 0
-    current_max_error = (a+b)/2
+
+    #max iteration is terminating point
+    max_iterations = 100
+    
     mid = (a+b)/2
+
+    #this is the correct root for (x-5)^9
     correct_root = 5
 
-    while ( current_max_error > tol): #abs(correct_root - mid) > tol
+    while ((b-a)/2 > tol and num_iterations < max_iterations): # or could use abs(mid-correct_root) > tol
         num_iterations += 1
-        current_max_error /= 2
         if(f(mid) < 0):
             #guess greater number
             b = b
@@ -50,9 +57,13 @@ def problem3c():
     print("Iterations: " + str(iterations)) 
 
 def main():
-    result, iterations = bisect(f2, 4.82, 5.2, 10**(-2))
+    result, iterations = bisect(f3, 1, 4, 10**(-3))
     print("Result: " + str(result))
     print("Iterations: " + str(iterations))
 
-problem3c()
-#main()
+    #result, iterations = bisect(f2, 4.82, 5.2, 10**(-3))
+    #print("Result with Expanded Evaluation: " + str(result))
+    #print("Iterations: " + str(iterations))
+
+#problem3c()
+main()
